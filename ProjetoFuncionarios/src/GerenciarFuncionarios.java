@@ -20,6 +20,8 @@ public class GerenciarFuncionarios {
             System.out.println("1 - Cadastrar");
             System.out.println("2 - Consultar");
             System.out.println("3 - Bonificar");
+            System.out.println("4 - Inativar");
+            System.out.println("5 - Listar todos");
             System.out.println("9 - Sair");
             System.out.println("Digite sua opção: ");
             opcao = Integer.parseInt(scanner.nextLine());
@@ -32,6 +34,12 @@ public class GerenciarFuncionarios {
                     break;
                 case 3:
                     gerenciar.execBonificar();
+                    break;
+                case 4:
+                    gerenciar.execDesativar();
+                    break;
+                case 5:
+                    gerenciar.execListarTodos();
                     break;
                 case 9:
                     System.out.println("Fim do programa");
@@ -89,5 +97,25 @@ public class GerenciarFuncionarios {
         funcionario.setSalario(Double.parseDouble(scanner.nextLine()));
         System.out.println("Funcionário cadastrado com sucesso!");
         funcionarios.add(funcionario); // Adicionando funcionário na lista
+    }
+
+    public void execListarTodos(){
+        for (Funcionario funcionario : funcionarios){
+            System.out.println(funcionario.listar());
+        }
+    }
+
+    public void execDesativar(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Digite o rg do funcionario para deixa-lo inativo: ");
+        String rgProc = scanner.nextLine();
+        for(Funcionario funcionario : funcionarios){
+            if(funcionario.getRg().equalsIgnoreCase(rgProc)){
+                funcionario.setAtivo(false);
+                System.out.println("Funcionário Inativado!");
+                return;
+            }
+        }
+        System.out.println("Funcionário não encontrado!");
     }
 }
